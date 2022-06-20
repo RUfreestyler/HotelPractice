@@ -18,3 +18,4 @@ F:\Documents\istu\ООП\HotelPractice\Hotel\obj\Debug\Hotel.Migrations.InitialC
 F:\Documents\istu\ООП\HotelPractice\Hotel\obj\Debug\Hotel.Migrations.SetAutoincrementForId.resources
 F:\Documents\istu\ООП\HotelPractice\Hotel\obj\Debug\Hotel.Migrations.CheckDateNullable.resources
 F:\Documents\istu\ООП\HotelPractice\Hotel\obj\Debug\Hotel.Migrations.MakeIdIdentity.resources
+F:\Documents\istu\ООП\HotelPractice\Hotel\obj\Debug\Hotel.ReserveForm.resources

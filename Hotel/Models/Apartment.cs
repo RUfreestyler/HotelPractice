@@ -27,6 +27,5 @@ namespace Hotel.Models
         public decimal PricePerDay { get; set; }     
         public DateTime? CheckInDate { get; set; }
         public DateTime? CheckOutDate { get; set; }
-        public List<Guest> GuestList { get; set; }
     }
 }

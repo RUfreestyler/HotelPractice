@@ -15,28 +15,53 @@ namespace Hotel
     public partial class MainForm : Form
     {
         private HotelContext db; 
+
         public MainForm(HotelContext context)
         {
             db = context;
             InitializeComponent();
+            StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            ShowAparts();
+        }
 
-                for (int i = 51; i <= 60; i++)
+        public void ShowAparts()
+        {
+            singleApartsPanel.Controls.Clear();
+            doubleApartsPanel.Controls.Clear();
+            tripleApartsPanel.Controls.Clear();
+            foreach (var ap in db.Apartments)
+            {
+                var btn = new Button
                 {
-                    var apart = new Apartment()
-                    {
-                        Number = i,
-                        Capacity = 3,
-                        IsEmpty = true,
-                        PricePerDay = 10000
-                    };
-                db.Apartments.Add(apart);
+                    Text = $"{ap.Number} номер",
+                    BackColor = ap.IsEmpty ? Color.Green : Color.Tomato,
+                    Name = $"buttonRoom{ap.Number}"
+                };
+                switch (ap.Capacity)
+                {
+                    case 1:
+                        singleApartsPanel.Controls.Add(btn);
+                        break;
+                    case 2:
+                        doubleApartsPanel.Controls.Add(btn);
+                        break;
+                    case 3:
+                        tripleApartsPanel.Controls.Add(btn);
+                        break;
+                    default:
+                        break;
                 }
-                db.SaveChanges();
+            }
+        }
 
+        private void reserveApartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var reserveForm = new ReserveForm(db, this);
+            reserveForm.ShowDialog();
         }
     }
 }
