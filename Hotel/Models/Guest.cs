@@ -30,6 +30,6 @@ namespace Hotel.Models
         public DateTime CheckOutDate { get; set; }
 
         [Required]
-        public Apartment LiveApartment { get; set; }
+        public int Number { get; set; }
     }
 }

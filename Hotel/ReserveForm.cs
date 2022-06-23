@@ -56,9 +56,6 @@ namespace Hotel
                 return;
             }
             var apNumber = int.Parse(numberComboBox.SelectedItem.ToString());
-            var ap = db.Apartments
-                .Where(x => x.Number == apNumber)
-                .FirstOrDefault();
             var newReservation = new Reservation()
             {
                 Name = nameBox.Text,
@@ -66,7 +63,7 @@ namespace Hotel
                 Phone = phoneBox.Text,
                 CheckInDate = checkinDatePicker.Value.Date,
                 CheckOutDate = checkoutDatePicker.Value.Date,
-                LiveApartment = ap,
+                Number = apNumber,
                 DateOfRequest = DateTime.Now
             };
             db.Reservations.Add(newReservation);

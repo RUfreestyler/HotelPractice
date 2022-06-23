@@ -23,3 +23,4 @@ F:\Documents\istu\ООП\HotelPractice\Hotel\obj\Debug\Hotel.Migrations.AddedRes
 F:\Documents\istu\ООП\HotelPractice\Hotel\obj\Debug\Hotel.ReservationsForm.resources
 F:\Documents\istu\ООП\HotelPractice\Hotel\obj\Debug\Hotel.Migrations.AddedOrderDatesTable.resources
 F:\Documents\istu\ООП\HotelPractice\Hotel\obj\Debug\Hotel.NumberInfoForm.resources
+F:\Documents\istu\ООП\HotelPractice\Hotel\obj\Debug\Hotel.Migrations.RemovedLinksToApartments.resources

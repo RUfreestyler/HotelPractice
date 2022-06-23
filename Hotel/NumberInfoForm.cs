@@ -27,7 +27,7 @@ namespace Hotel
         private void NumberInfoForm_Load(object sender, EventArgs e)
         {
             Text = $"{number} номер";
-            var guests = db.Guests.Where(x => x.LiveApartment.Number == number).ToList();
+            var guests = db.Guests.Where(x => x.Number == number).ToList();
             foreach (var guest in guests)
             {
                 infoPanel.Controls.Add(new RichTextBox() 

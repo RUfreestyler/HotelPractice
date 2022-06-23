@@ -11,7 +11,7 @@ namespace Hotel.Models
         public int Id { get; set; }
 
         [Required]
-        public Apartment Apartment { get; set; }
+        public int Number { get; set; }
 
         [Required]
         public DateTime CheckIn { get; set; }

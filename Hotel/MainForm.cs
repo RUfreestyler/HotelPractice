@@ -45,7 +45,7 @@ namespace Hotel
             var apartments = db.Apartments.ToList();
             foreach (var apart in apartments)
             {
-                var orders = orderDates.Where(x => x.Apartment.ID == apart.ID);
+                var orders = orderDates.Where(x => x.Number == apart.Number);
                 bool isChanged = false;
                 foreach (var order in orders)
                 {
@@ -129,9 +129,9 @@ namespace Hotel
             while(reservations.Any())
             {
                 var currentReservation = reservations.First();
-                var currentApart = aparts.FirstOrDefault(x => x.Number == currentReservation.LiveApartment.Number);
+                var currentApart = aparts.FirstOrDefault(x => x.Number == currentReservation.Number);
                 var reservationsOnCurrentApart = reservations
-                    .Where(x => x.LiveApartment.Number == currentApart.Number).ToList();
+                    .Where(x => x.Number == currentApart.Number).ToList();
                 var resGroups = reservationsOnCurrentApart
                     .GroupBy(x => x.CheckInDate)
                     .OrderBy(x => x.Key).ToList();
@@ -151,44 +151,80 @@ namespace Hotel
                         var reservationWithEarlestRequestDate = reservationsWithMaxPeriod
                             .Where(r => r.DateOfRequest == earlestRequestDate)
                             .FirstOrDefault();
-                        if(lastAddedOrderToCurrentApart != null && 
-                            reservationWithEarlestRequestDate.CheckInDate <= lastAddedOrderToCurrentApart.CheckOutDate)
+                        var ordersToCurrentApart = db.OrderDates.Where(x => x.Number == currentApart.Number).ToList();
+                        bool isSuitable = true;
+                        foreach (var order in ordersToCurrentApart)
                         {
+                            if(reservationWithEarlestRequestDate.CheckInDate >= order.CheckIn && 
+                                reservationWithEarlestRequestDate.CheckInDate <= order.CheckOut ||
+                                reservationWithEarlestRequestDate.CheckOutDate >= order.CheckIn &&
+                                reservationWithEarlestRequestDate.CheckOutDate <= order.CheckOut)
+                            {
+                                isSuitable = false;
+                                break;
+                            }
+                        }
+                        if(lastAddedOrderToCurrentApart != null && 
+                            reservationWithEarlestRequestDate.CheckInDate <= lastAddedOrderToCurrentApart.CheckOutDate || 
+                            !isSuitable)
+                        {
+                            foreach (var res in group)
+                            {
+                                reservations.RemoveAll(x => x.Id == res.Id);
+                            }
                             continue;
                         }
+                        ReserveApart(reservationWithEarlestRequestDate);
                         lastAddedOrderToCurrentApart = reservationWithEarlestRequestDate;
-                        int number = reservationWithEarlestRequestDate.LiveApartment.Number;
-                        reservations
-                            .RemoveAll(r => r.LiveApartment.Number == reservationWithEarlestRequestDate.LiveApartment.Number);
-                        ReserveApart(reservationWithEarlestRequestDate); ///после этого reservationWithEarlestRequestDate.LiveApartment становится null
-                        db.Reservations.RemoveRange(db.Reservations.Where(x => x.LiveApartment.Number == number).AsEnumerable());
-                        db.SaveChanges();
+                        foreach (var res in group)
+                        {
+                            reservations.RemoveAll(x => x.Id == res.Id);
+                        }
                     }
                     else
                     {
                         var reservation = reservationsWithMaxPeriod.FirstOrDefault();
-                        if (lastAddedOrderToCurrentApart != null &&
-                            reservation.CheckInDate <= lastAddedOrderToCurrentApart.CheckOutDate)
+                        var ordersToCurrentApart = db.OrderDates.Where(x => x.Number == currentApart.Number).ToList();
+                        bool isSuitable = true;
+                        foreach (var order in ordersToCurrentApart)
                         {
+                            if (reservation.CheckInDate >= order.CheckIn &&
+                                reservation.CheckInDate <= order.CheckOut ||
+                                reservation.CheckOutDate >= order.CheckIn &&
+                                reservation.CheckOutDate <= order.CheckOut)
+                            {
+                                isSuitable = false;
+                                break;
+                            }
+                        }
+                        if (lastAddedOrderToCurrentApart != null &&
+                            reservation.CheckInDate <= lastAddedOrderToCurrentApart.CheckOutDate ||
+                            !isSuitable)
+                        {
+                            foreach (var res in group)
+                            {
+                                reservations.RemoveAll(x => x.Id == res.Id);
+                            }
                             continue;
                         }
+                        ReserveApart(reservation);
                         lastAddedOrderToCurrentApart = reservation;
-                        int number = reservation.LiveApartment.Number;
-                        reservations
-                            .RemoveAll(r => r.LiveApartment.Number == reservation.LiveApartment.Number);
-                        ReserveApart(reservation); ///после этого reservation.LiveApartment становится null
-                        db.Reservations.RemoveRange(db.Reservations.Where(x => x.LiveApartment.Number == number).AsEnumerable());
-                        db.SaveChanges();
+                        foreach (var res in group)
+                        {
+                            reservations.RemoveAll(x => x.Id == res.Id);
+                        }
                     }
                 }
             }
+            db.Reservations.RemoveRange(db.Reservations.AsEnumerable());
+            db.SaveChanges();
             UpdateApartsStatus();
             ShowAparts();
         }
 
         private void ReserveApart(Reservation res)
         {
-            var apartment = db.Apartments.Where(x => x.Number == res.LiveApartment.Number)
+            var apartment = db.Apartments.Where(x => x.Number == res.Number)
                 .FirstOrDefault();
             var newGuest = new Guest()
             {
@@ -197,35 +233,17 @@ namespace Hotel
                 Phone = res.Phone,
                 CheckInDate = res.CheckInDate,
                 CheckOutDate = res.CheckOutDate,
-                LiveApartment = apartment
+                Number = apartment.Number
             };
             db.Guests.Add(newGuest);          
-            db.Reservations.Remove(db.Reservations.Where(x => x.Id == res.Id).FirstOrDefault());
             var newOrder = new OrderDate()
             {
                 CheckIn = res.CheckInDate.Date,
                 CheckOut = res.CheckOutDate.Date,
-                Apartment = apartment
+                Number = apartment.Number
             };
             db.OrderDates.Add(newOrder);
-            //try
-            //{
             db.SaveChanges();
-            //}
-            //catch (DbEntityValidationException e)
-            //{
-            //    var fileWriter = new StreamWriter("mylog.txt");
-            //    foreach (var eve in e.EntityValidationErrors)
-            //    {
-            //        fileWriter.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-            //            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-            //        foreach (var ve in eve.ValidationErrors)
-            //        {
-            //            fileWriter.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-            //                ve.PropertyName, ve.ErrorMessage);
-            //        }
-            //    }
-            //}
             UpdateApartsStatus();
         }
 

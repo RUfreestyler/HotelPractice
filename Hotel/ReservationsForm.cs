@@ -40,7 +40,7 @@ namespace Hotel
                     res.Phone,
                     res.CheckInDate,
                     res.CheckOutDate,
-                    db.Apartments.Where(x => x.ID == res.LiveApartment.ID).FirstOrDefault().Number,
+                    res.Number,
                     res.DateOfRequest
                 });
             }

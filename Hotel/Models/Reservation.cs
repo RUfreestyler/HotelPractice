@@ -37,7 +37,7 @@ namespace Hotel.Models
 
         [Required]
         [Display(Name = "Номер комнаты")]
-        public Apartment LiveApartment { get; set; }
+        public int Number { get; set; }
 
         [Required]
         [Display(Name = "Дата заявки")]
