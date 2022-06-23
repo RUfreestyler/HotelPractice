@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Hotel.Models;
 using Hotel.Services;
@@ -27,7 +22,7 @@ namespace Hotel
 
         private void ReserveForm_Load(object sender, EventArgs e)
         {
-            capacityComboBox.Items.AddRange(new object[] { "Одноместный", "Двуместный", "Трехместный" });
+            capacityComboBox.Items.AddRange(new object[] { "Одноместный", "Двуместный", "Трехместный", "VIP" });
             nameBox.Focus();
         }
 
@@ -64,19 +59,17 @@ namespace Hotel
             var ap = db.Apartments
                 .Where(x => x.Number == apNumber)
                 .FirstOrDefault();
-            ap.CheckInDate = checkinDatePicker.Value.Date;
-            ap.CheckOutDate = checkoutDatePicker.Value.Date;
-            ap.IsEmpty = false;
-            var newGuest = new Guest()
+            var newReservation = new Reservation()
             {
                 Name = nameBox.Text,
                 Surname = surnameBox.Text,
                 Phone = phoneBox.Text,
                 CheckInDate = checkinDatePicker.Value.Date,
                 CheckOutDate = checkoutDatePicker.Value.Date,
-                LiveApartment = ap
+                LiveApartment = ap,
+                DateOfRequest = DateTime.Now
             };
-            db.Guests.Add(newGuest);
+            db.Reservations.Add(newReservation);
             db.SaveChanges();
             if(MessageBox.Show("Номер включен в список брони", "Уведомление", MessageBoxButtons.OK) == DialogResult.OK)
             {
@@ -112,6 +105,14 @@ namespace Hotel
                         .Select(x => (object)x.Number)
                         .ToArray();
                     numberComboBox.Items.AddRange(triples);
+                    break;
+                case "VIP":
+                    var vips = db.Apartments
+                        .AsEnumerable()
+                        .Where(x => x.Capacity == 4)
+                        .Select(x => (object)x.Number)
+                        .ToArray();
+                    numberComboBox.Items.AddRange(vips);
                     break;
                 default:
                     break;

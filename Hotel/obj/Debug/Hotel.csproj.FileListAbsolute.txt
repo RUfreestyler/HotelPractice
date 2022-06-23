@@ -19,3 +19,7 @@ F:\Documents\istu\ООП\HotelPractice\Hotel\obj\Debug\Hotel.Migrations.SetAutoi
 F:\Documents\istu\ООП\HotelPractice\Hotel\obj\Debug\Hotel.Migrations.CheckDateNullable.resources
 F:\Documents\istu\ООП\HotelPractice\Hotel\obj\Debug\Hotel.Migrations.MakeIdIdentity.resources
 F:\Documents\istu\ООП\HotelPractice\Hotel\obj\Debug\Hotel.ReserveForm.resources
+F:\Documents\istu\ООП\HotelPractice\Hotel\obj\Debug\Hotel.Migrations.AddedReservationsTable.resources
+F:\Documents\istu\ООП\HotelPractice\Hotel\obj\Debug\Hotel.ReservationsForm.resources
+F:\Documents\istu\ООП\HotelPractice\Hotel\obj\Debug\Hotel.Migrations.AddedOrderDatesTable.resources
+F:\Documents\istu\ООП\HotelPractice\Hotel\obj\Debug\Hotel.NumberInfoForm.resources

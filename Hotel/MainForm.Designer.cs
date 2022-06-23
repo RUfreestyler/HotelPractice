@@ -30,22 +30,25 @@
         {
             this.apartsTab = new System.Windows.Forms.TabControl();
             this.singleApartsPage = new System.Windows.Forms.TabPage();
-            this.doubleApartsPage = new System.Windows.Forms.TabPage();
-            this.tripleApartsPage = new System.Windows.Forms.TabPage();
             this.singleApartsPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.doubleApartsPage = new System.Windows.Forms.TabPage();
             this.doubleApartsPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.tripleApartsPage = new System.Windows.Forms.TabPage();
             this.tripleApartsPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.гостиницаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.завершитьДеньДосрочноToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.finishDayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reservedApartsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.гостиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reserveApartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.забронированныеНомераToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vipApartsPage = new System.Windows.Forms.TabPage();
+            this.vipApartsPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.apartsTab.SuspendLayout();
             this.singleApartsPage.SuspendLayout();
             this.doubleApartsPage.SuspendLayout();
             this.tripleApartsPage.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.vipApartsPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // apartsTab
@@ -53,6 +56,7 @@
             this.apartsTab.Controls.Add(this.singleApartsPage);
             this.apartsTab.Controls.Add(this.doubleApartsPage);
             this.apartsTab.Controls.Add(this.tripleApartsPage);
+            this.apartsTab.Controls.Add(this.vipApartsPage);
             this.apartsTab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.apartsTab.Location = new System.Drawing.Point(0, 24);
             this.apartsTab.Name = "apartsTab";
@@ -71,6 +75,14 @@
             this.singleApartsPage.Text = "Одноместные";
             this.singleApartsPage.UseVisualStyleBackColor = true;
             // 
+            // singleApartsPanel
+            // 
+            this.singleApartsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.singleApartsPanel.Location = new System.Drawing.Point(3, 3);
+            this.singleApartsPanel.Name = "singleApartsPanel";
+            this.singleApartsPanel.Size = new System.Drawing.Size(786, 394);
+            this.singleApartsPanel.TabIndex = 0;
+            // 
             // doubleApartsPage
             // 
             this.doubleApartsPage.Controls.Add(this.doubleApartsPanel);
@@ -82,6 +94,14 @@
             this.doubleApartsPage.Text = "Двуместные";
             this.doubleApartsPage.UseVisualStyleBackColor = true;
             // 
+            // doubleApartsPanel
+            // 
+            this.doubleApartsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.doubleApartsPanel.Location = new System.Drawing.Point(3, 3);
+            this.doubleApartsPanel.Name = "doubleApartsPanel";
+            this.doubleApartsPanel.Size = new System.Drawing.Size(786, 394);
+            this.doubleApartsPanel.TabIndex = 0;
+            // 
             // tripleApartsPage
             // 
             this.tripleApartsPage.Controls.Add(this.tripleApartsPanel);
@@ -92,22 +112,6 @@
             this.tripleApartsPage.TabIndex = 2;
             this.tripleApartsPage.Text = "Трехместные";
             this.tripleApartsPage.UseVisualStyleBackColor = true;
-            // 
-            // singleApartsPanel
-            // 
-            this.singleApartsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.singleApartsPanel.Location = new System.Drawing.Point(3, 3);
-            this.singleApartsPanel.Name = "singleApartsPanel";
-            this.singleApartsPanel.Size = new System.Drawing.Size(786, 394);
-            this.singleApartsPanel.TabIndex = 0;
-            // 
-            // doubleApartsPanel
-            // 
-            this.doubleApartsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.doubleApartsPanel.Location = new System.Drawing.Point(3, 3);
-            this.doubleApartsPanel.Name = "doubleApartsPanel";
-            this.doubleApartsPanel.Size = new System.Drawing.Size(786, 394);
-            this.doubleApartsPanel.TabIndex = 0;
             // 
             // tripleApartsPanel
             // 
@@ -131,17 +135,25 @@
             // гостиницаToolStripMenuItem
             // 
             this.гостиницаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.завершитьДеньДосрочноToolStripMenuItem,
-            this.забронированныеНомераToolStripMenuItem});
+            this.finishDayMenuItem,
+            this.reservedApartsMenuItem});
             this.гостиницаToolStripMenuItem.Name = "гостиницаToolStripMenuItem";
             this.гостиницаToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
             this.гостиницаToolStripMenuItem.Text = "Гостиница";
             // 
-            // завершитьДеньДосрочноToolStripMenuItem
+            // finishDayMenuItem
             // 
-            this.завершитьДеньДосрочноToolStripMenuItem.Name = "завершитьДеньДосрочноToolStripMenuItem";
-            this.завершитьДеньДосрочноToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.завершитьДеньДосрочноToolStripMenuItem.Text = "Завершить день досрочно";
+            this.finishDayMenuItem.Name = "finishDayMenuItem";
+            this.finishDayMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.finishDayMenuItem.Text = "Завершить день досрочно";
+            this.finishDayMenuItem.Click += new System.EventHandler(this.finishDayMenuItem_Click);
+            // 
+            // reservedApartsMenuItem
+            // 
+            this.reservedApartsMenuItem.Name = "reservedApartsMenuItem";
+            this.reservedApartsMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.reservedApartsMenuItem.Text = "Забронированные номера";
+            this.reservedApartsMenuItem.Click += new System.EventHandler(this.reservedApartsMenuItem_Click);
             // 
             // гостиToolStripMenuItem
             // 
@@ -154,15 +166,28 @@
             // reserveApartToolStripMenuItem
             // 
             this.reserveApartToolStripMenuItem.Name = "reserveApartToolStripMenuItem";
-            this.reserveApartToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reserveApartToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.reserveApartToolStripMenuItem.Text = "Создать бронь";
             this.reserveApartToolStripMenuItem.Click += new System.EventHandler(this.reserveApartToolStripMenuItem_Click);
             // 
-            // забронированныеНомераToolStripMenuItem
+            // vipApartsPage
             // 
-            this.забронированныеНомераToolStripMenuItem.Name = "забронированныеНомераToolStripMenuItem";
-            this.забронированныеНомераToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.забронированныеНомераToolStripMenuItem.Text = "Забронированные номера";
+            this.vipApartsPage.Controls.Add(this.vipApartsPanel);
+            this.vipApartsPage.Location = new System.Drawing.Point(4, 22);
+            this.vipApartsPage.Name = "vipApartsPage";
+            this.vipApartsPage.Padding = new System.Windows.Forms.Padding(3);
+            this.vipApartsPage.Size = new System.Drawing.Size(792, 400);
+            this.vipApartsPage.TabIndex = 3;
+            this.vipApartsPage.Text = "VIP";
+            this.vipApartsPage.UseVisualStyleBackColor = true;
+            // 
+            // vipApartsPanel
+            // 
+            this.vipApartsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.vipApartsPanel.Location = new System.Drawing.Point(3, 3);
+            this.vipApartsPanel.Name = "vipApartsPanel";
+            this.vipApartsPanel.Size = new System.Drawing.Size(786, 394);
+            this.vipApartsPanel.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -173,7 +198,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "Гостиница";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.apartsTab.ResumeLayout(false);
             this.singleApartsPage.ResumeLayout(false);
@@ -181,6 +206,7 @@
             this.tripleApartsPage.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.vipApartsPage.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -197,10 +223,12 @@
         private System.Windows.Forms.FlowLayoutPanel tripleApartsPanel;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem гостиницаToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem завершитьДеньДосрочноToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem забронированныеНомераToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem finishDayMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reservedApartsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem гостиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reserveApartToolStripMenuItem;
+        private System.Windows.Forms.TabPage vipApartsPage;
+        private System.Windows.Forms.FlowLayoutPanel vipApartsPanel;
     }
 }
 

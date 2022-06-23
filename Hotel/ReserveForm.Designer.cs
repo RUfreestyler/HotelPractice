@@ -194,7 +194,7 @@
             this.ClientSize = new System.Drawing.Size(258, 354);
             this.Controls.Add(this.formPanel);
             this.Name = "ReserveForm";
-            this.Text = "ReserveForm";
+            this.Text = "Создание брони";
             this.Load += new System.EventHandler(this.ReserveForm_Load);
             this.formPanel.ResumeLayout(false);
             this.formPanel.PerformLayout();

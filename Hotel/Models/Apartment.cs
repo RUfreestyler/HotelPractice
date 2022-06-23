@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hotel.Models
@@ -25,7 +20,5 @@ namespace Hotel.Models
 
         [Required]
         public decimal PricePerDay { get; set; }     
-        public DateTime? CheckInDate { get; set; }
-        public DateTime? CheckOutDate { get; set; }
     }
 }

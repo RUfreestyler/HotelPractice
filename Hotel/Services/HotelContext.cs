@@ -12,6 +12,8 @@ namespace Hotel.Services
     {
         public DbSet<Apartment> Apartments { get; set; }
         public DbSet<Guest> Guests { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<OrderDate> OrderDates { get; set; }
 
         public HotelContext() : base("DBConnection")
         {
